@@ -2,9 +2,11 @@ import "react-native-gesture-handler"; //must be at the top
 import React from "react";
 import { Image, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createStackNavigator, CardStyleInterpolators } from "@react-navigation/stack";
 import HomeScreen from "./components/home/homeScreen";
 import RecipeScreen from "./components/recipe/recipeScreen";
+import GroceryListScreen from "./components/groceryList/groceryListScreen";
+import CalendatScreen from "./components/calendar/calendarScreen";
 import { StatusBar } from "expo-status-bar";
 import { colors } from "./styles/base";
 import mainLogo from "./assets/mainLogo.png";
@@ -24,10 +26,11 @@ export default function App() {
                     headerTitleStyle: {
                         fontWeight: "bold",
                     },
+                    cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
                 }}
             >
                 <Stack.Screen
-                    name="Home"
+                    name="Accueil"
                     component={HomeScreen}
                     options={{
                         headerTitle: function homepageHeader() {
@@ -35,7 +38,13 @@ export default function App() {
                         },
                     }}
                 />
-                <Stack.Screen name="Recipe" component={RecipeScreen} />
+                <Stack.Screen name="Recipe" component={RecipeScreen} options={{ title: "Recettes" }} />
+                <Stack.Screen
+                    name="GroceryList"
+                    component={GroceryListScreen}
+                    options={{ title: "Liste d'épicerie" }}
+                />
+                <Stack.Screen name="Calendar" component={CalendatScreen} options={{ title: "Calendrier" }} />
             </Stack.Navigator>
             <StatusBar style="auto" />
         </NavigationContainer>
@@ -43,21 +52,9 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-    mainContrainer: {
-        flex: 1,
-        flexDirection: "column",
-    },
-    mainHeader: {
-        backgroundColor: colors.primary,
-        paddingTop: 50,
-        height: 115,
-    },
     headerLogo: {
-        width: 200,
-        height: 50,
+        width: 175,
+        height: 45,
         alignSelf: "center",
-    },
-    receipe: {
-        width: 150,
     },
 });
